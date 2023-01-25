@@ -1,0 +1,51 @@
+name: Blog Content Files
+
+on:
+  push:
+    branches: ['master']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: 检出仓库代码
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Build
+        run: |
+          npm install
+          npm run build
+
+      - name: 安装腾讯云依赖
+        run: |
+          sudo pip install coscmd
+          sudo pip install tccli
+
+      - name: 配置腾讯云依赖
+        env:
+          SECRET_ID: ${{ secrets.TCLOUD_API_ID }}
+          SECRET_KEY: ${{ secrets.TCLOUD_API_KEY }}
+          BUCKET: blog-1300388364 #改为自己的存储桶名称
+          REGION: ap-chengdu #改为自己的地域
+        run: |
+          coscmd config -a $SECRET_ID -s $SECRET_KEY -b $BUCKET -r $REGION
+          tccli configure set secretId $SECRET_ID
+          tccli configure set secretKey $SECRET_KEY
+          tccli configure set region $REGION
+
+      - name: 上传到腾讯云COS并刷新CDN
+        run: |
+          coscmd upload -rfs --delete ./api/ /api/
+          coscmd upload -rfs --delete ./hints/ /api/hints/
+          coscmd upload -rfs --delete ./posts/ /api/posts/
+          tccli cdn PurgePathCache --cli-unfold-argument --Paths https://blog.flysky.xyz/ --FlushType flush
