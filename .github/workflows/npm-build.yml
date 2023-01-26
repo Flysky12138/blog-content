@@ -48,4 +48,4 @@ jobs:
           coscmd upload -rfs --delete ./api/ /api/
           coscmd upload -rfs --delete ./hints/ /api/hints/
           coscmd upload -rfs --delete ./posts/ /api/posts/
-          tccli cdn PurgePathCache --cli-unfold-argument --Paths https://blog.flysky.xyz/ --FlushType flush
+          tccli cdn PurgePathCache --cli-unfold-argument --Paths https://blog.api.flysky.xyz/ --FlushType flush
