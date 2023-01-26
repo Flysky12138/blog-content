@@ -1,2 +1,2 @@
 - 仿照 [Hexo](hexo.io) 的主题 [butterfly](https://github.com/jerryc127/hexo-theme-butterfly) UI 制作
-- 使用 [React](https://zh-hans.reactjs.org/) 开发，已尽可能优化。然而 `CSR` 模式还是不适合博客，以后有机会或许会同构成 `SSR`。~~`SSG` 模式修改文章，到构建完成需要时间，故放弃~~
+- 使用 [React](https://zh-hans.reactjs.org/) 开发，已尽可能优化，然而 `CSR` 模式不适合博客（MarkDown渲染太耗性能）；以后有机会或许会同构成 `SSR` 或 `SSG`，但为了 `SPA` 还需引入 [pjax](https://github.com/defunkt/jquery-pjax) 。。。
