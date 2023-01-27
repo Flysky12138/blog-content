@@ -10,7 +10,7 @@ cover: https://cdn.flysky.xyz/cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicW/blo
 JavaScript 为了实现继承，使用了如下两个属性：
 
 - `prototype`: 原型对象。只有函数才有这个属性，需被实例继承的属性和方法都定义在 `prototype` 对象上。原型对象上有一个指回构造函数自身的指针 `constructor`。
-- `__proto__`: 每个对象都有这个私有属性（函数也是对象），其中 {% label 实例对象 blue %} 的 `__proto__` 属性指向它的构造函数的原型对象（有些对象不是通过构造函数 `new` 出来的，比如通过 `Object.create()` 和 `extends` 创建的对象）。`__proto__` 是非标准属性，可以使用 `Object.getPrototypeOf()` 获取对象的原型。
+- `__proto__`: 每个对象都有这个私有属性（函数也是对象），其中 label 实例对象 blue 的 `__proto__` 属性指向它的构造函数的原型对象（有些对象不是通过构造函数 `new` 出来的，比如通过 `Object.create()` 和 `extends` 创建的对象）。`__proto__` 是非标准属性，可以使用 `Object.getPrototypeOf()` 获取对象的原型。
 
 ## 原型链
 
