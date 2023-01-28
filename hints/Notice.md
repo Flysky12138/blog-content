@@ -1,2 +1,3 @@
 - 仿照 [Hexo](hexo.io) 的主题 [butterfly](https://github.com/jerryc127/hexo-theme-butterfly) UI 制作
 - 使用 [React](https://zh-hans.reactjs.org/) 开发，已尽可能优化，然而 `CSR` 模式不适合博客（MarkDown渲染太耗性能）；以后有机会或许会同构成 `SSR` 或 `SSG`，但为了 `SPA` 还需引入 [pjax](https://github.com/defunkt/jquery-pjax) 。。。
+- 第一次加载比较慢，因为字体和 Live2D 文件比较大。后续加载会因 [Service Worker](https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API) 的缓存而变快
