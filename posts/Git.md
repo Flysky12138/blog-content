@@ -109,7 +109,7 @@ git rm -r --cached .
 
 ## 提交规范
 
-<Alert variant="outlined">提交格式为 `<type>[(scope)]: <subject>` 注意冒号 `:` 后有空格。如 **_feat(miniprogram): 增加了小程序模板消息相关功能_** 工具：[点击查看](/post/33fa9d21/#commitizen)</Alert>
+<Alert variant="outlined">提交格式为 `<type>[(scope)]: <subject>` 注意冒号 `:` 后有空格。如 **_feat(miniprogram): 增加了小程序模板消息相关功能_** 工具：[点击查看](/post/33fa9d21/#5)</Alert>
 
 - **scope**：表示 `commit` 的作用范围，如数据层、视图层，也可以是目录名称
 - **subject**：用于对 `commit` 进行简短的描述
