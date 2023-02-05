@@ -592,6 +592,7 @@ type StrArrOrNumArr = ToArray<string | number>
 
 ```ts
 type OnlyBoolsAndHorses = {
+  [key: string]: boolean | Horse
 }
 const conforms: OnlyBoolsAndHorses = {
   del: true,
@@ -599,6 +600,7 @@ const conforms: OnlyBoolsAndHorses = {
 }
 
 type OptionsFlags<T> = {
+  [key in keyof T]: boolean
 }
 type FeatureFlags = {
   darkMode: () => void
@@ -639,6 +641,7 @@ type User = Concrete<MaybeUser>
 
 ```ts
 type Getters<T> = {
+  [key in keyof T as `get${Capitalize<string & key>}`]: () => T[key]
 }
 interface Person {
   name: string
@@ -659,22 +662,22 @@ TypeScript 提供了几种泛型方法来帮助常见的类型转换。详细参
 
 | 方法 | 说明 | 原型 |
 | -- | -- | -- |
-| `Partial<Type>`                       | 将类型的所有属性设置为可选                                                          | `type Partial<T> = { [P in keyof T]?: T[P] \| undefined; }`                                                                               |
-| `Required<Type>`                      | 将类型的所有属性设置为必选                                                          | `type Required<T> = { [P in keyof T]-?: T[P]; }`                                                                                          |
-| `Readonly<Type>`                      | 将类型的所有属性设置为只读                                                          | `type Readonly<T> = { readonly [P in keyof T]: T[P]; }`                                                                                   |
-| `Record<Keys, Type>`                  | 构建一个对象类型，其属性键为 Keys，其属性值为 Type                                  | `type Record<K extends string \| number \| symbol, T> = { [P in K]: T; }`                                                                 |
-| `Pick<Type, Keys>`                    | 从 Type 中选取属性集合 Keys（字符串字头或字符串字头的联合）来构造一个类型           | `type Pick<T, K extends keyof T> = { [P in K]: T[P]; }`                                                                                   |
-| `Omit<Type, Keys>`                    | 从 Type 中选取所有属性，然后删除 Keys（字符串字面或字符串字面的联合）来构造一个类型 | `type Omit<T, K extends string \| number \| symbol> = { [P in Exclude<keyof T, K>]: T[P]; }`                                              |
-| `Exclude<UnionType, ExcludedMembers>` | 从 UnionType 中排除可分配给 ExcludedMembers 的所有 union 成员来构造一个类型         | `type Exclude<T, U> = T extends U ? never : T`                                                                                            |
-| `Extract<Type, Union>`                | 从 Type 中提取可分配给 Union 的所有 union 成员来构造一个类型                        | `type Extract<T, U> = T extends U ? T : never`                                                                                            |
-| `NonNullable<Type>`                   | 从 Type 中排除 null 和 undefined 来构造一个类型                                     | `type NonNullable<T> = T extends null \| undefined ? never : T`                                                                           |
-| `Parameters<Type>`                    | 从函数 Type 使用的参数中构建一个元组类型                                            | `type Parameters<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never`                                      |
-| `ConstructorParameters<Type>`         | 从构造函数 Type 使用的参数中构造一个元组或数组类型                                  | `type ConstructorParameters<T extends abstract new (...args: any) => any> = T extends abstract new (...args: infer P) => any ? P : never` |
-| `ReturnType<Type>`                    | 构建一个由函数 Type 的返回类型组成的类型                                            | `type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any`                                        |
-| `InstanceType<Type>`                  | 构建一个由构造函数 Type 的返回类型组成的类型                                        | `type InstanceType<T extends abstract new (...args: any) => any> = T extends abstract new (...args: any) => infer R ? R : any`            |
-| `ThisParameterType<Type>`             | 提取一个函数类型的 this 参数的类型                                                  | `type ThisParameterType<T> = T extends (this: infer U, ...args: never) => any ? U : unknown`                                              |
-| `OmitThisParameter<Type>`             | 移除 Type 的 this 参数                                                              | `type OmitThisParameter<T> = unknown extends ThisParameterType<T> ? T : T extends (...args: infer A) => infer R ? (...args: A) => R : T`  |
-| `Uppercase<StringType>`               | 字符串大写                                                                          |
-| `Lowercase<StringType>`               | 字符串小写                                                                          |
-| `Capitalize<StringType>`              | 字符串首字母大写                                                                    |
-| `Uncapitalize<StringType>`            | 字符串首字母小写                                                                    |
+| `Partial<Type>` | 将类型的所有属性设置为可选 | `type Partial<T> = { [P in keyof T]?: T[P] | undefined; }` |
+| `Required<Type>` | 将类型的所有属性设置为必选 | `type Required<T> = { [P in keyof T]-?: T[P]; }` |
+| `Readonly<Type>` | 将类型的所有属性设置为只读 | `type Readonly<T> = { readonly [P in keyof T]: T[P]; }` |
+| `Record<Keys, Type>` | 构建一个对象类型，其属性键为 Keys，其属性值为 Type | `type Record<K extends string | number | symbol, T> = { [P in K]: T; }` |
+| `Pick<Type, Keys>` | 从 Type 中选取属性集合 Keys（字符串字头或字符串字头的联合）来构造一个类型 | `type Pick<T, K extends keyof T> = { [P in K]: T[P]; }` |
+| `Omit<Type, Keys>` | 从 Type 中选取所有属性，然后删除 Keys（字符串字面或字符串字面的联合）来构造一个类型 | `type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P]; }` |
+| `Exclude<UnionType, ExcludedMembers>` | 从 UnionType 中排除可分配给 ExcludedMembers 的所有 union 成员来构造一个类型 | `type Exclude<T, U> = T extends U ? never : T` |
+| `Extract<Type, Union>` | 从 Type 中提取可分配给 Union 的所有 union 成员来构造一个类型 | `type Extract<T, U> = T extends U ? T : never` |
+| `NonNullable<Type>` | 从 Type 中排除 null 和 undefined 来构造一个类型 | `type NonNullable<T> = T extends null | undefined ? never : T` |
+| `Parameters<Type>` | 从函数 Type 使用的参数中构建一个元组类型 | `type Parameters<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never` |
+| `ConstructorParameters<Type>` | 从构造函数 Type 使用的参数中构造一个元组或数组类型 | `type ConstructorParameters<T extends abstract new (...args: any) => any> = T extends abstract new (...args: infer P) => any ? P : never` |
+| `ReturnType<Type>` | 构建一个由函数 Type 的返回类型组成的类型 | `type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any` |
+| `InstanceType<Type>` | 构建一个由构造函数 Type 的返回类型组成的类型 | `type InstanceType<T extends abstract new (...args: any) => any> = T extends abstract new (...args: any) => infer R ? R : any` |
+| `ThisParameterType<Type>` | 提取一个函数类型的 this 参数的类型 | `type ThisParameterType<T> = T extends (this: infer U, ...args: never) => any ? U : unknown` |
+| `OmitThisParameter<Type>` | 移除 Type 的 this 参数 | `type OmitThisParameter<T> = unknown extends ThisParameterType<T> ? T : T extends (...args: infer A) => infer R ? (...args: A) => R : T` |
+| `Uppercase<StringType>` | 字符串大写 |
+| `Lowercase<StringType>` | 字符串小写 |
+| `Capitalize<StringType>` | 字符串首字母大写 |
+| `Uncapitalize<StringType>` | 字符串首字母小写 |
