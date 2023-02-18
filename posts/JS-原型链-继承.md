@@ -10,21 +10,23 @@ cover: https://cdn.flysky.xyz/cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicW/blo
 JavaScript 为了实现继承，使用了如下两个属性：
 
 - `prototype`: 原型对象。只有函数才有这个属性，需被实例继承的属性和方法都定义在 `prototype` 对象上。原型对象上有一个指回构造函数自身的指针 `constructor`。
-- `__proto__`: 每个对象都有这个私有属性（函数也是对象），其中 label 实例对象 blue 的 `__proto__` 属性指向它的构造函数的原型对象（有些对象不是通过构造函数 `new` 出来的，比如通过 `Object.create()` 和 `extends` 创建的对象）。`__proto__` 是非标准属性，可以使用 `Object.getPrototypeOf()` 获取对象的原型。
+- `__proto__`: 每个对象都有这个私有属性（函数也是对象），其中实例对象的 `__proto__` 属性指向它的构造函数的原型对象（有些对象不是通过构造函数 `new` 出来的，比如通过 `Object.create()` 和 `extends` 创建的对象）。`__proto__` 是用以访问 `[[Prototype]]` 的非标准 `getter/setter` 属性，可以使用 `Object.getPrototypeOf/setPrototypeOf()` 获取修改对象的原型。
+
+```js
+const obj = Object.create(null)
+obj.__proto__ = Array.prototype
+
+console.log(obj.__proto__.slice)
+console.log(obj.slice) // undefined
+```
+
+原型上的 `__proto__` 的 `setter` 才有改变 `[[Prototype]]` 的功能，`Object.create(null)` 的对象设置的 `__proto__` 只是一个普通的属性，没有改变 `[[Prototype]]`
 
 ## 原型链
 
 > 通过 `__proto__` 将实例对象与他的原型对象串联起来，形成的一条链。
 
-当试图访问一个对象的属性时，它不仅仅在该对象上搜寻，还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。
-
-`new Array()` -- `__proto__` --> `Array.prototype` -- `__proto__` --> `Object.prototype` -- `__proto__` --> `null`
-
-这也是为什么判断变量类型用 `Object.prototype.toString.call()` 更准确，因为在原型链下层继承过程中 `toString` 被重写了。
-
-![原型链](https://cdn.flysky.xyz/cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicW/blog/d5dfc137cc7d085b467f7fd64c15ff90.webp)
-
-结论：先有 `Object.prototype`（原型链顶端），`Function.prototype` 继承 `Object.prototype` 而产生，最后，`Function` 和 `Object` 和其它构造函数继承 `Function.prototype` 而产生。
+当试图访问一个对象的属性时，它不仅仅在该对象上搜寻，还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。这也是为什么判断变量类型用 `Object.prototype.toString.call()` 更准确，因为在原型链下层继承过程中 `toString` 被重写了。
 
 ## `new` 操作符的实现
 
