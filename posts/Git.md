@@ -2,7 +2,7 @@
 title: Git
 abbrlink: 69c3279c
 date: 2022-07-02 10:37:36
-updated: 2022-11-15 12:21:07
+updated: 2023-02-25 21:37:07
 description: 在多人项目中 Git 的使用教程
 cover: https://cdn.flysky.xyz/cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicW/blog/c6fb40f134425b3a6eca586187897490.webp
 ---
@@ -81,9 +81,14 @@ git reset HEAD <filename> # 撤销指定文件
 git reset HEAD . # 放弃所有的暂存
 
 # 已经使用了 git commit 提交到本地仓库
-git reset --hard HEAD^ # 回滚到上一个提交的状态
-git reset --hard <commit_id> # 回滚到指定的 commit
+git reset [--mixed|--soft|--hard] HEAD^ # 回滚到上一个提交的状态
+git reset [--mixed|--soft|--hard] <commit_id> # 回滚到指定的 commit
+
+## --mixed 这是默认设置，并保持所有文件相同但取消暂存更改
+## --soft 这将保留您的文件，并自动暂存所有更改
+## --hard 这将完全破坏所有更改并将它们从本地目录中删除
 ```
+![git reset](https://cdn.flysky.xyz/cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicW/blog/e0a43e03c5f5303eebce1659b1fe0034.webp)
 
 ## 其他
 
