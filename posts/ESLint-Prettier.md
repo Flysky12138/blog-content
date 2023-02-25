@@ -280,10 +280,9 @@ cover: https://cdn.flysky.xyz/cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicW/blo
 
 ### 自定义配置
 
-`cz-git` 与 `commitlint` 进行联动给予校验信息，所以可以编写于 `commitlint` 配置文件 `.commitlintrc.js` 之中（`cz-git` 暂时不支持 `.commitlintrc.ts`）
+`cz-git` 与 `commitlint` 进行联动给予校验信息，所以可以编写于 `commitlint` 配置文件 `.commitlintrc.cjs` 之中（`cz-git` 暂时不支持 `.commitlintrc.ts`）
 
 ```js
-/* eslint-env node */
 /** @type {import('cz-git').UserConfig} */
 module.exports = {
   extends: ['@commitlint/config-conventional'],
