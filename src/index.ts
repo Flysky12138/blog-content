@@ -43,7 +43,7 @@ const main = () => {
   // 保存文章信息
   const postInfo = JSON.stringify(
     getDirAllMarkDownPath(Config.Post.path)
-      .map(path => Object.assign(getPostInfo(path), { url: path }))
+      .map(path => Object.assign(getPostInfo(path), { url: `${path}?t=${Date.now()}` }))
       .sort((a, b) => Date.parse(b.updated) - Date.parse(a.updated))
   )
   writeFileSync(Config.Post.output, postInfo, { encoding: 'utf-8' })
@@ -52,7 +52,7 @@ const main = () => {
   ;([Config.Announcement, Config.Notice] as itemType[]).forEach(item => {
     const content = readFileSync(item.url, 'utf-8')
     const Info = JSON.stringify({
-      url: item.url,
+      url: `${item.url}?t=${Date.now()}`,
       md5: md5(content)
     })
     writeFileSync(item.output, Info, { encoding: 'utf-8' })
