@@ -10,7 +10,7 @@ cover: https://cdn.flysky.xyz/cdn.jsdelivr.net/gh/Flysky12138/warehouse/PicW/blo
 - 白名单模式，意为「**没有命中规则的网络流量，统统使用代理**」，适用于服务器线路网络质量稳定、快速，不缺服务器流量的用户。
 - 如你希望 Apple、iCloud 和 Google 列表中的域名使用代理，则把 policy 由 `DIRECT` 改为 `PROXY`，以此类推，举一反三。
 - 如你不希望进行 DNS 解析，可在 `GEOIP` 规则的最后加上 `,no-resolve`，如 `GEOIP,CN,DIRECT,no-resolve`。
-- 详细设置说明自行查看文档 [MetaCubeX/Clash.Meta](https://github.com/MetaCubeX/Clash.Meta/wiki/Configuring-example#general) 与 [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules)
+- 详细设置说明自行查看文档 [Dreamacro/clash/wiki](https://github.com/Dreamacro/clash/wiki/Configuration)、[MetaCubeX/Clash.Meta](https://github.com/MetaCubeX/Clash.Meta/wiki/Configuring-example#general)、[Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules)
 
 <Tabs>
 <Tab label="白名单模式">
@@ -55,7 +55,7 @@ dns:
   fake-ip-range: 198.18.0.1/16
   use-hosts: true
   nameserver-policy:
-    'geosite:cn': [https://doh.pub/dns-query, https://dns.alidns.com/dns-query]
+    'geosite:cn': https://dns.alidns.com/dns-query
   nameserver:
     - https://dns.google/dns-query
     - https://dns.cloudflare.com/dns-query
