@@ -226,7 +226,7 @@ dns:
   fake-ip-range: 198.18.0.1/16
   use-hosts: true
   nameserver-policy:
-    'geosite:cn': [https://doh.pub/dns-query, https://dns.alidns.com/dns-query]
+    'geosite:cn': https://dns.alidns.com/dns-query
   nameserver:
     - https://dns.google/dns-query
     - https://dns.cloudflare.com/dns-query
